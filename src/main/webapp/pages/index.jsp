@@ -74,6 +74,7 @@
 				<tr>
 					<th>S.No</th>
 					<th>Citizen Name</th>
+					<th>Citizen Gender</th>
 					<th>Plan Name</th>
 					<th>Plan Status</th>
 					<th>StartDate</th>
@@ -86,6 +87,12 @@
 				<c:forEach items="${plans}" var="plan" varStatus="index">
 					<tr>
 						<td>${index.count}</td>
+						<td>${plan.citizenName}</td>
+						<td>${plan.citizenGeneder}</td>
+						<td>${plan.citizenPlanName}</td>
+						<td>${plan.citizenPlanStatus}</td>
+						<td>${plan.citizenPlanStartDate}</td>
+						<td>${plan.citizenPlanEndDate}</td>
 						
 
 					</tr>

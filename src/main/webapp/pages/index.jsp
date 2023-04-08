@@ -27,6 +27,7 @@
 					<td>Plan name:</td>
 					<td><form:select path="planName">
 							<form:option value="">-Select</form:option>
+							<form:options items="${planNames}"/>
 						</form:select></td>
 					<td></td>
 					<td></td>
@@ -35,6 +36,7 @@
 					<td>Plan Status:</td>
 					<td><form:select path="PlanStatus">
 							<form:option value="">-Select</form:option>
+							<form:options items="${planStatus}"/>
 						</form:select></td>
 					<td></td>
 					<td></td>

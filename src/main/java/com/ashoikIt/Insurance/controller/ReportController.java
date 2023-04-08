@@ -18,13 +18,17 @@ public class ReportController {
 
 	@GetMapping("/")
 	public String indexPage(Model model) {
-		//iif you want bing sReauest to ui used Model
-		SearchRequest sReguest = new SearchRequest();
-		model.addAttribute("search", sReguest);
+		// iif you want bing sReauest to ui used Model
+		// SearchRequest searchObj = new SearchRequest();
+		// model.addAttribute("search", searchObj);
+		// (Or)
+		model.addAttribute("search", new SearchRequest());
+		model.addAttribute("planNames", reportService.getPlanName());
+		model.addAttribute("planStatus", reportService.getPlanStatus());
 		return "index";
 	}
 
-	@GetMapping("/plans")
+	@GetMapping("/search")
 	public ResponseEntity<SearchRequest> getAllPlans() {
 		reportService.getPlanName();
 		return new ResponseEntity<SearchRequest>(HttpStatus.OK);

@@ -33,15 +33,25 @@ public class RequestServiceImpl implements ReportService {
 	@Override
 	public List<CitizenPlan> search(SearchRequest request) {
 		// filter applying
-		// using Dynamic Query using of Example of()
+		// using Dynamic Query using of Example.of()
 
 		CitizenPlan entity = new CitizenPlan();
-		BeanUtils.copyProperties(request, entity);
+		
+		if (null != request.getPlanName() && !"".equals(request.getPlanName())) {
+			entity.setCitizenPlanName(request.getPlanName());
+		}
+		if (null != request.getPlanStatus() && !"".equals(request.getPlanStatus())) {
+			entity.setCitizenPlanStatus(request.getPlanStatus());
+		}
+
+		if (null != request.getGender() && !"".equals(request.getGender())) {
+			entity.setCitizenGeneder(request.getGender());
+		}
+
 		return planRepository.findAll(Example.of(entity));
-		//Dates will not work because bugs there means diff formates
-		//Remaining will works three plan names ,plan status and gender
-		
-		
+		// Dates will not work because bugs there means diff formates
+		// Remaining will works three plan names ,plan status and gender
+
 	}
 
 	@Override

@@ -51,13 +51,13 @@
 				</tr>
 				<tr>
 					<td>Start Date:</td>
-					<td><form:input path="startDate"></form:input></td>
+					<td><form:input path="startDate"  type="date" data-date-format="mm/dd/yyyy"></form:input></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td>End Date:</td>
-					<td><form:input path="endDate"></form:input></td>
+					<td><form:input type= "date" path="endDate"></form:input></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Reset" class="btn btn-danger" />

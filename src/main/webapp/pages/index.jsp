@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
 <head>
@@ -27,23 +28,23 @@
 					<td>Plan name:</td>
 					<td><form:select path="planName">
 							<form:option value="">-Select</form:option>
-							<form:options items="${planNames}"/>
+							<form:options items="${planName}" />
 						</form:select></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td>Plan Status:</td>
-					<td><form:select path="PlanStatus">
+					<td><form:select path="planStatus">
 							<form:option value="">-Select</form:option>
-							<form:options items="${planStatus}"/>
+							<form:options items="${planStatus}" />
 						</form:select></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td>Gender:</td>
-					<td><form:select path="PlanStatus">
+					<td><form:select path="gender">
 							<form:option value="">-Select</form:option>
 							<form:option value="Male">Male</form:option>
 							<form:option value="Fe-Male">Fe-Male</form:option>
@@ -51,13 +52,13 @@
 				</tr>
 				<tr>
 					<td>Start Date:</td>
-					<td><form:input path="startDate"  type="date" data-date-format="mm/dd/yyyy"></form:input></td>
+					<td><form:input path="startDate" type="date"></form:input></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td>End Date:</td>
-					<td><form:input type= "date" path="endDate"></form:input></td>
+					<td><form:input type="date" path="endDate"></form:input></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Reset" class="btn btn-danger" />
@@ -68,7 +69,31 @@
 		</form:form>
 
 		<hr />
+		<table class="table  table-striped table-hover">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>Citizen Name</th>
+					<th>Plan Name</th>
+					<th>Plan Status</th>
+					<th>StartDate</th>
+					<th>EndDate</th>
 
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach items="${plans}" var="plan" varStatus="index">
+					<tr>
+						<td>${index.count}</td>
+						
+
+					</tr>
+
+				</c:forEach>
+
+			</tbody>
+		</table>
 		<hr />
 
 		Export: <a href="">EXCEL</a>

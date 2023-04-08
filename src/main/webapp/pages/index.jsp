@@ -20,7 +20,7 @@
 		<h1 class="mb-3">Report Application</h1>
 
 
-		<form:form action="" modelAttribute="search" method="POST">
+		<form:form action="search" modelAttribute="search" method="POST">
 
 			<table>
 				<tr>

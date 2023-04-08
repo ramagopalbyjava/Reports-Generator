@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ashoikIt.Insurance.dto.SearchRequest;
 import com.ashoikIt.Insurance.service.ReportService;
@@ -23,15 +24,20 @@ public class ReportController {
 		// model.addAttribute("search", searchObj);
 		// (Or)
 		model.addAttribute("search", new SearchRequest());
-		model.addAttribute("planNames", reportService.getPlanName());
-		model.addAttribute("planStatus", reportService.getPlanStatus());
+		init(model);
 		return "index";
 	}
 
-	@GetMapping("/search")
-	public ResponseEntity<SearchRequest> getAllPlans() {
-		reportService.getPlanName();
-		return new ResponseEntity<SearchRequest>(HttpStatus.OK);
+	private void init(Model model) {
+		model.addAttribute("planNames", reportService.getPlanName());
+		model.addAttribute("planStatus", reportService.getPlanStatus());
+	}
+
+	@PostMapping("/search")
+	public String handleSearchRequest(SearchRequest request, Model model) {
+		System.out.println(request);
+		init(model);
+		return "index";
 
 	}
 }

@@ -77,8 +77,12 @@
 					<th>Citizen Gender</th>
 					<th>Plan Name</th>
 					<th>Plan Status</th>
-					<th>StartDate</th>
-					<th>EndDate</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Benefit Amount</th>
+					<th>Denial Reason</th>
+					<th>Terminated Date</th>
+					<th>Termination Reason</th>
 
 				</tr>
 			</thead>
@@ -93,7 +97,11 @@
 						<td>${plan.citizenPlanStatus}</td>
 						<td>${plan.citizenPlanStartDate}</td>
 						<td>${plan.citizenPlanEndDate}</td>
-						
+						<td>${plan.citizenBenefitAmount}</td>
+						<td>${plan.citizenDenialReason}</td>
+						<td>${plan.citizenTerminatedDate}</td>
+						<td>${plan.citizenTerminationReson}</td>
+
 
 					</tr>
 

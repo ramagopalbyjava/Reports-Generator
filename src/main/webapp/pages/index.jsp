@@ -109,7 +109,7 @@
 		</table>
 		<hr />
 
-		Export: <a href="" class="btn btn-primary" >EXCEL</a>
+		Export: <a href="excelExport" class="btn btn-primary" >EXCEL</a>
 
 		 <a href="" class="btn btn-primary">PDF</a>
 	</div>

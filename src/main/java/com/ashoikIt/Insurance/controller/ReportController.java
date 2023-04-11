@@ -2,6 +2,8 @@ package com.ashoikIt.Insurance.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,5 +43,14 @@ public class ReportController {
 		init(model);
 		return "index";
 
+	}
+	
+	@GetMapping("/excelExport")
+	public void handleExcelExport(HttpServletResponse response) throws Exception {
+		
+		response.setContentType("Application/octet-stream");
+		response.addHeader("Content-Disposition", "attachment;filename=plans.xls");
+	
+		reportService.exportExcel(response);
 	}
 }

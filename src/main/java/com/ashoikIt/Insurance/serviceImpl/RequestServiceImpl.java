@@ -20,6 +20,10 @@ import com.ashoikIt.Insurance.dto.SearchRequest;
 import com.ashoikIt.Insurance.entity.CitizenPlan;
 import com.ashoikIt.Insurance.repo.CitizenPlanRepository;
 import com.ashoikIt.Insurance.service.ReportService;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public class RequestServiceImpl implements ReportService {
@@ -81,7 +85,7 @@ public class RequestServiceImpl implements ReportService {
 	@Override
 	public boolean exportExcel(HttpServletResponse response) throws Exception {
 		Workbook workBook = new HSSFWorkbook();
-	
+
 		Sheet sheet = workBook.createSheet();
 
 		Row headRow = sheet.createRow(0);
@@ -96,13 +100,13 @@ public class RequestServiceImpl implements ReportService {
 		List<CitizenPlan> records = planRepository.findAll();
 		Integer data = 1;
 		for (CitizenPlan plans : records) {
-			Row row = sheet.createRow(1);
+			Row row = sheet.createRow(data);
 			row.createCell(0).setCellValue(plans.getCitizenId());
 			row.createCell(1).setCellValue(plans.getCitizenName());
 			row.createCell(2).setCellValue(plans.getCitizenPlanName());
 			row.createCell(3).setCellValue(plans.getCitizenPlanStatus());
-			row.createCell(4).setCellValue(plans.getCitizenPlanStartDate()+" ");
-			row.createCell(5).setCellValue(plans.getCitizenPlanEndDate()+" ");
+			row.createCell(4).setCellValue(plans.getCitizenPlanStartDate() + " ");
+			row.createCell(5).setCellValue(plans.getCitizenPlanEndDate() + " ");
 			data++;
 		}
 		ServletOutputStream outputStream = response.getOutputStream();
@@ -112,9 +116,39 @@ public class RequestServiceImpl implements ReportService {
 	}
 
 	@Override
-	public boolean exportPdf() {
+	public boolean exportPdf(HttpServletResponse response) throws Exception {
 
-		return false;
+		Document d = new Document();
+
+		PdfWriter.getInstance(d, response.getOutputStream());
+		d.open();
+
+		Paragraph p = new Paragraph("Citizen Plans Info");
+		d.add(p);
+		PdfPTable t = new PdfPTable(6);
+
+		t.addCell("ID");
+		t.addCell("Citizen Name");
+		t.addCell("Citizen PlanName");
+		t.addCell("Citizen PlanStatus");
+		t.addCell("Citizen PlanStartDate");
+		t.addCell("Citizen PlanEndDate");
+
+		List<CitizenPlan> rds = planRepository.findAll();
+
+		for (CitizenPlan plans : rds) {
+			t.addCell(String.valueOf(plans.getCitizenId()));
+			t.addCell(plans.getCitizenName());
+			t.addCell(plans.getCitizenPlanName());
+			t.addCell(plans.getCitizenPlanStatus());
+			t.addCell(plans.getCitizenPlanStartDate() + "");
+			t.addCell(plans.getCitizenPlanEndDate() + " ");
+		}
+		d.add(t);
+		d.close();
+
+		return true;
+
 	}
 
 }

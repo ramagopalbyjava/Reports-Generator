@@ -111,7 +111,7 @@
 
 		Export: <a href="excelExport" class="btn btn-primary" >EXCEL</a>
 
-		 <a href="" class="btn btn-primary">PDF</a>
+		 <a href="pdfExport" class="btn btn-primary">PDF</a>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

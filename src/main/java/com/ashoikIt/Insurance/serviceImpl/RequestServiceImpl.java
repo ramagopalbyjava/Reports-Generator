@@ -1,8 +1,9 @@
 package com.ashoikIt.Insurance.serviceImpl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class RequestServiceImpl implements ReportService {
 		// using Dynamic Query using of Example.of()
 
 		CitizenPlan entity = new CitizenPlan();
-		
+
 		if (null != request.getPlanName() && !"".equals(request.getPlanName())) {
 			entity.setCitizenPlanName(request.getPlanName());
 		}
@@ -48,6 +49,21 @@ public class RequestServiceImpl implements ReportService {
 			entity.setCitizenGeneder(request.getGender());
 		}
 
+		if (request.getStartDate() != null && !"".equals(request.getStartDate())) {
+			String startDate = request.getStartDate();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate localDate = LocalDate.parse(startDate, formatter);
+			entity.setCitizenPlanStartDate(localDate);
+
+		}
+
+		if (request.getEndDate() != null && !"".equals(request.getEndDate())) {
+			String endDate = request.getStartDate();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate localDate = LocalDate.parse(endDate, formatter);
+			entity.setCitizenPlanEndDate(localDate);
+
+		}
 		return planRepository.findAll(Example.of(entity));
 		// Dates will not work because bugs there means diff formates
 		// Remaining will works three plan names ,plan status and gender

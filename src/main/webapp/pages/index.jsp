@@ -52,7 +52,7 @@
 				</tr>
 				<tr>
 					<td>Start Date:</td>
-					<td><form:input path="startDate" type="date"></form:input></td>
+					<td><form:input type="date" path="startDate"></form:input></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -80,9 +80,6 @@
 					<th>Start Date</th>
 					<th>End Date</th>
 					<th>Benefit Amount</th>
-					<th>Denial Reason</th>
-					<th>Terminated Date</th>
-					<th>Termination Reason</th>
 
 				</tr>
 			</thead>
@@ -98,24 +95,23 @@
 						<td>${plan.citizenPlanStartDate}</td>
 						<td>${plan.citizenPlanEndDate}</td>
 						<td>${plan.citizenBenefitAmount}</td>
-						<td>${plan.citizenDenialReason}</td>
-						<td>${plan.citizenTerminatedDate}</td>
-						<td>${plan.citizenTerminationReson}</td>
+						
 
 
 					</tr>
 
 				</c:forEach>
-
+				<tr>
+					<td colspan="12" style="text-align: center"><font color="red"><c:if
+								test="${empty plans}"> No Records Found </c:if></font></td>
+				</tr>
 			</tbody>
 		</table>
 		<hr />
 
-		Export: <a href="">EXCEL</a>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td> <a href="">PDF</a>
+		Export: <a href="" class="btn btn-primary" >EXCEL</a>
+
+		 <a href="" class="btn btn-primary">PDF</a>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

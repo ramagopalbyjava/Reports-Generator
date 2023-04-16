@@ -1,17 +1,12 @@
 package com.ashoikIt.Insurance.serviceImpl;
 
+import java.io.File;
 import java.time.LocalDate;
-
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -20,12 +15,9 @@ import com.ashoikIt.Insurance.dto.SearchRequest;
 import com.ashoikIt.Insurance.entity.CitizenPlan;
 import com.ashoikIt.Insurance.repo.CitizenPlanRepository;
 import com.ashoikIt.Insurance.service.ReportService;
+import com.ashoikIt.Insurance.utils.EmailUtils;
 import com.ashoikIt.Insurance.utils.ExcelGenerator;
 import com.ashoikIt.Insurance.utils.PdfGenerator;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public class RequestServiceImpl implements ReportService {
@@ -38,6 +30,9 @@ public class RequestServiceImpl implements ReportService {
 
 	@Autowired
 	private ExcelGenerator excelGenerator;
+
+	@Autowired
+	private EmailUtils emailUtils;
 
 	@Override
 	public List<String> getPlanName() {
@@ -91,20 +86,30 @@ public class RequestServiceImpl implements ReportService {
 	}
 
 	@Override
-	public boolean exportExcel(HttpServletResponse response) throws Exception {
+	public void exportExcel(HttpServletResponse response) throws Exception {
 
 		List<CitizenPlan> records = planRepository.findAll();
-		excelGenerator.exportExcels(response, records);
-		return true;
+		File file = new File("plans.xls");
+		excelGenerator.exportExcels(response, records,file);
+		String subject = "Citizen-Plan-Details";
+		String body = "<h1>Below the Excel File is attached</h1>";
+		String to = "swetharam389@gmail.com";
+		emailUtils.sendMail(subject, body, to,file);
+		file.delete();
+
 	}
 
 	@Override
-	public boolean exportPdf(HttpServletResponse response) throws Exception {
-
+	public void exportPdf(HttpServletResponse response) throws Exception {
 		List<CitizenPlan> rds = planRepository.findAll();
-		pdfGenerator.exportPdfs(response, rds);
-		return true;
 
+		File file = new File("plans.pdf");
+		pdfGenerator.exportPdfs(response, rds,file);
+		String subject = "Citizen-Plan-Details";
+		String body = "<h1>Below the Pdf File is attached</h1>";
+		String to = "swetharam389@gmail.com";
+		emailUtils.sendMail(subject, body, to,file);
+		file.delete();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.ashoikIt.Insurance.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +19,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Component
 public class PdfGenerator {
 
-	public boolean exportPdfs(HttpServletResponse response, List<CitizenPlan> rds) throws Exception {
+	public boolean exportPdfs(HttpServletResponse response, List<CitizenPlan> rds,File f) throws Exception {
 
 		Document d = new Document();
 
 		PdfWriter.getInstance(d, response.getOutputStream());
+		
+		PdfWriter.getInstance(d, new FileOutputStream(f));
+		
 		d.open();
 		Font fontTiltle = FontFactory.getFont(FontFactory.TIMES_ROMAN);
 		fontTiltle.setSize(20);
@@ -49,7 +54,7 @@ public class PdfGenerator {
 		}
 		d.add(t);
 		d.close();
-
+	
 		return true;
 
 	}

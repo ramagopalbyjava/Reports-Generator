@@ -1,5 +1,7 @@
 package com.ashoikIt.Insurance.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -16,7 +18,7 @@ import com.ashoikIt.Insurance.entity.CitizenPlan;
 @Component
 public class ExcelGenerator {
 
-	public boolean exportExcels(HttpServletResponse response, List<CitizenPlan> records) throws Exception {
+	public boolean exportExcels(HttpServletResponse response, List<CitizenPlan> records,File f) throws Exception {
 		Workbook workBook = new HSSFWorkbook();
 
 		Sheet sheet = workBook.createSheet();
@@ -41,6 +43,12 @@ public class ExcelGenerator {
 			row.createCell(5).setCellValue(plans.getCitizenPlanEndDate() + " ");
 			data++;
 		}
+		
+		
+		  FileOutputStream fos = new FileOutputStream(f); workBook.write(fos);
+		  fos.close(); workBook.close();
+		 
+		
 		ServletOutputStream outputStream = response.getOutputStream();
 		workBook.write(outputStream);
 		workBook.close();
